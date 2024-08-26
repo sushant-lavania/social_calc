@@ -4,6 +4,7 @@ import SignOut from "@/components/sign-out";
 import Image from "next/image";
 
 
+
 export default async function Home() {
   const session=await auth()
   if(session?.user){
