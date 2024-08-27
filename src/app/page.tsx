@@ -3,13 +3,11 @@ import SignIn from "@/components/sign-in";
 import SignOut from "@/components/sign-out";
 import Spreadsheet from "@/components/spreadsheet";
 import Image from "next/image";
-
-
-
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
-  const session=await auth()
-  if(session?.user){
+  const session = await auth()
+  if (session?.user) {
     return (
       // <main className="flex min-h-screen flex-col items-center justify-between p-24">
       //   {/* <div className="flex flex-col items-center justify-center">
@@ -18,16 +16,16 @@ export default async function Home() {
       //   </div> */}
       // </main>
       <>
-        <SignOut/>
         <div className="h-screen">
-          <Spreadsheet/>
+          <Spreadsheet />
         </div>
+        <SignOut />
       </>
     );
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SignIn/>
+      <SignIn />
     </main>
   );
 }
