@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortune-sheet/react": "^0.19.13",
     "@prisma/client": "^5.18.0",
     "@univerjs/core": "^0.2.9",
     "@univerjs/design": "^0.2.9",
