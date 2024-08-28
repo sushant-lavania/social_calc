@@ -1,10 +1,20 @@
 "use client";
 import { Workbook } from "@fortune-sheet/react";
 import "@fortune-sheet/react/dist/index.css";
+import { useCallback } from "react";
+import {Op} from "@fortune-sheet/core"
 
 export default function Spreadsheet() {
+    const onOp = useCallback((op: Op[]) => {
+        console.log("operation is trigerred")
+        op.forEach((operation)=>{
+            console.log(operation)
+        })
+    }, []);
     return (
-        <Workbook data={[
+        <Workbook 
+        onOp={onOp}
+        data={[
             {
                 name: "Cell",
                 color: "black",
@@ -47,5 +57,6 @@ export default function Spreadsheet() {
                 showGridLines: 1,
             }
         ]} />
+        
     );
 }

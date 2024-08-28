@@ -8,7 +8,7 @@ export default function SignIn() {
     <form
       action={async () => {
         "use server"
-        await signIn("google")
+        await signIn("google",{redirectTo:"/dashboard"})
       }}
       className="border border-black p-5 rounded-md"
     >
