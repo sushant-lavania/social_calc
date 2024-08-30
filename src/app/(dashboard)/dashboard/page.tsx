@@ -3,7 +3,9 @@ import { redirect } from 'next/navigation';
 import prisma from "@/lib/db"; // Import your prisma instance
 import { getSpreadsheets } from "@/lib/getSpreadsheets";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { createSpreadsheet } from "@/lib/createSpreadsheet";
+import { User } from "next-auth";
+import CreateNewSpreadsheet from "@/components/createNewSpreadsheet";
 
 export default async function Dashboard() {
     try {
@@ -17,13 +19,11 @@ export default async function Dashboard() {
 
     // Fetch the list of spreadsheets for the authenticated user
     const spreadsheets = await getSpreadsheets()
-    
-
     // Render the dashboard with the list of spreadsheets
     return (
         <div>
             <h1>Dashboard</h1>
-            <Link href="/sheet"><Button >New Spreadsheet</Button></Link>
+            <CreateNewSpreadsheet/>
             
 
             {/* If the user has spreadsheets, render them in a table */}
