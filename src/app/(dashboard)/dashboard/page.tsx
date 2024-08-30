@@ -43,7 +43,7 @@ export default async function Dashboard() {
                 <div className="w-full p-3">
                    {spreadsheets.map((spreadsheet)=>(
                     <div className="hover:bg-slate-900 hover:text-slate-50 rounded-xl hover:cursor-pointer text-2xl p-5" key={spreadsheet.id}>
-                        <Link href={`/sheet/${spreadsheet.id}`}><SpreadsheetList name={spreadsheet.name} updatedAt={spreadsheet.updatedAt.toLocaleString()}/></Link>
+                        <SpreadsheetList id={spreadsheet.id} name={spreadsheet.name} updatedAt={spreadsheet.updatedAt.toLocaleString()}/>
                     </div>
                    ))}
                 </div>

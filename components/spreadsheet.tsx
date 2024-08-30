@@ -13,7 +13,6 @@ export default function Spreadsheet() {
             console.log(operation)
         })
     }, []);
-    const [rename, setrename] = useState(0)
     return (
         <div className="h-screen">
             {/* <div className="flex justify-between p-2" >
@@ -31,6 +30,7 @@ export default function Spreadsheet() {
             </div> */}
             <Workbook 
             onOp={onOp}
+            onChange={(e)=>{console.log(JSON.stringify(e))}}
             data={[
                 {
                     name: "Cell",

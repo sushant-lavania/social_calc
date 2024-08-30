@@ -1,4 +1,5 @@
 "use server"
+import { revalidatePath } from "next/cache"
 import prisma from "./db"
 import { getUserdb } from "./getUserdb"
 
@@ -29,7 +30,8 @@ export async function createSpreadsheet(){
                 sheets:true
             }
         })
-        return newSpreadsheet
+
+        revalidatePath("/dashboard")
     }catch(error){
         console.log("Error creatting new sheet ", error)
         throw new Error("Failed to create new spreadsheet")
