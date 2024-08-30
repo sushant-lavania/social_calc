@@ -1,8 +1,9 @@
 import prisma from "@/lib/db";
-import { getUser } from "./getUser";
+
+import { getUserdb } from "./getUserdb";
 
 export async function getSpreadsheets(){
-    const user= await getUser()
+    const user= await getUserdb()
     if(user){
         const spreadsheets = await prisma.spreadsheet.findMany({
             where: {
@@ -12,5 +13,4 @@ export async function getSpreadsheets(){
         return spreadsheets
 
     }
-
 }

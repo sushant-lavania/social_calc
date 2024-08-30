@@ -4,8 +4,6 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,80 +13,22 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-        
-        
 
 model User {
-  id  String  @id @default(cuid())
-  email   String   @unique
-  name    String?
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  Spreadsheets  Spreadsheet[]
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Spreadsheets Spreadsheet[]
 }
+
 model Spreadsheet {
-  id  String  @id @default(cuid())
-  userid          String
-  user            User       @relation(fields: [userid], references: [id])
-  name            String     // Name of the spreadsheet
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  sheets          Sheet[]    // A spreadsheet can have multiple sheets
-}
-
-model Sheet {
-  id  String  @id @default(cuid())
-  name            String     // Name of the sheet ("Cell" in the example)
-  spreadsheetId   String        // Foreign key to Spreadsheet
-  spreadsheet     Spreadsheet @relation(fields: [spreadsheetId], references: [id])
-  color           String?    // Color of the sheet (e.g., "black")
-  status          Int        // Status of the sheet
-  order           Int        // Order of the sheet in the spreadsheet
-  hide            Boolean    @default(false) // Whether the sheet is hidden
-  rowCount        Int        // Number of rows in the sheet
-  columnCount     Int        // Number of columns in the sheet
-  defaultRowHeight Int       // Default height for the rows
-  defaultColWidth Int        // Default width for the columns
-  showGridLines   Boolean    @default(true)  // Whether grid lines are shown
-  cells           Cell[]     // Cells data
-  config          Config?    // Configuration for the sheet (rowlen, collen, merge, etc.)
-  pivotTable      PivotTable? // Optional PivotTable configuration
-  filter          Filter?    // Optional filter configuration
-  zoomRatio       Float      @default(1)    // Zoom ratio for the sheet
-}
-
-model Cell {
-  id  String  @id @default(cuid())
-  row             Int        // Row index
-  column          Int        // Column index
-  content         String?    // Content of the cell
-  sheetId         String        @unique
-  sheet           Sheet      @relation(fields: [sheetId], references: [id])
-}
-
-model Config {
-  id  String  @id @default(cuid())
-  sheetId         String        @unique
-  sheet           Sheet      @relation(fields: [sheetId], references: [id])
-  rowlen          Json       // Row lengths, stored as a JSON object
-  columnlen       Json       // Column lengths, stored as a JSON object
-  rowhidden       Json       // Hidden rows, stored as a JSON object
-  colhidden       Json       // Hidden columns, stored as a JSON object
-  merge           Json       // Merged cell data, stored as a JSON object
-  borderInfo      Json       // Border information, stored as a JSON object
-  authority       Json       // Authority or permissions, stored as a JSON object
-}
-
-model PivotTable {
-  id  String  @id @default(cuid())
-  sheetId         String        @unique
-  sheet           Sheet      @relation(fields: [sheetId], references: [id])
-  config          Json       // Pivot table configuration, stored as JSON
-}
-
-model Filter {
-  id  String  @id @default(cuid())
-  sheetId         String        @unique
-  sheet           Sheet      @relation(fields: [sheetId], references: [id])
-  filter_select   Json       // Filter selection configuration (row/column), stored as JSON
+  id        String   @id @default(cuid())
+  userid    String
+  user      User     @relation(fields: [userid], references: [id])
+  name      String // Name of the spreadsheet
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  data      Json 
 }
