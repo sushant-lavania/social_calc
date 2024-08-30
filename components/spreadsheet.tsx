@@ -16,7 +16,7 @@ export default function Spreadsheet() {
     const [rename, setrename] = useState(0)
     return (
         <div className="h-screen">
-            <div className="flex justify-between p-2" >
+            {/* <div className="flex justify-between p-2" >
                 <div className="flex justify-between items-center">
                     Untitled
                     {rename? 
@@ -28,7 +28,7 @@ export default function Spreadsheet() {
                     }
                 </div>
                 <Button className="ml-2">Save</Button>
-            </div>
+            </div> */}
             <Workbook 
             onOp={onOp}
             data={[
