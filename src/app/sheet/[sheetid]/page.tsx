@@ -1,4 +1,5 @@
-import Spreadsheet from "@/components/spreadsheet";
+
+import SpreadsheetComponent from "@/components/spreadsheet";
 import { getspreadsheet } from "@/lib/getSpreadSheet";
 
 
@@ -7,8 +8,7 @@ export default async function Sheet({params}:{ params : {sheetid:string}}){
         const spreadsheet = await getspreadsheet(params.sheetid)
         return(
             <div className="h-screen">
-                {params.sheetid}
-                <Spreadsheet />
+                <SpreadsheetComponent spreadsheet={spreadsheet} />
             </div>
         )
     }catch(error){
