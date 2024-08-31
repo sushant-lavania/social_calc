@@ -1,34 +1,13 @@
-import { auth } from "@/auth";
 import SignIn from "@/components/sign-in";
-import SignOut from "@/components/sign-out";
-import Spreadsheet from "@/components/spreadsheet";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default async function Home() {
-  const session = await auth()
-  if (session?.user) {
-    return (
-      // <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      //   {/* <div className="flex flex-col items-center justify-center">
-      //     <h1 className="text-2xl font-bold">{session.user.name}</h1>
-      //     <p className="text-sm text-gray-500">{session.user.email}</p>
-      //   </div> */}
-      // </main>
-      <>
-        <div className="h-screen">
-          <Spreadsheet />
-        </div>
-        <SignOut />
-      </>
-    );
-  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SignIn />
-    </main>
+    <div className="min-h-screen   flex flex-col justify-center items-center">
+      <div className="text-5xl font-bold mb-8">
+        SocialCalc
+      </div>
+      <SignIn/>
+    </div>
   );
 }
-
-
-
