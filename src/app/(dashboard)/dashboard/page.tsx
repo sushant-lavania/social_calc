@@ -48,7 +48,7 @@ export default async function Dashboard() {
                    ))}
                 </div>
             ) : (
-                <p>No spreadsheets found</p>
+                <p className="p-5 w-full text-xl">No spreadsheets created</p>
             )}
         </div>
     );

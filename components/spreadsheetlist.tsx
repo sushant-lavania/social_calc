@@ -4,6 +4,7 @@ import { deleteSpreadsheet } from "@/lib/deleteSpreadsheet"; // Ensure this func
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 interface SpreadsheetListProps {
   id: string;
@@ -20,6 +21,7 @@ export default function SpreadsheetList({ id, name, updatedAt }: SpreadsheetList
     setIsDeleting(true);
     try {
       await deleteSpreadsheet(id);
+      toast("deleted successfully")
     } catch (error) {
       console.error("Error deleting spreadsheet:", error);
       setIsDeleting(false); // Re-enable the button if there's an error

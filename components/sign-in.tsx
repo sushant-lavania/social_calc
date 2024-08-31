@@ -10,9 +10,9 @@ export default function SignIn() {
         "use server"
         await signIn("google",{redirectTo:"/dashboard"})
       }}
-      className="border border-black p-5 rounded-md"
+      
     >
-      <div className="text-2xl p-10">
+      {/* <div className="text-2xl p-10">
         Create an account
       </div>
       <div>
@@ -27,8 +27,8 @@ export default function SignIn() {
         
       </div>
 
-    <Button className="mt-5 mr-6">Signin</Button>
-    <Button className="mt-5">Signin with Google</Button>
+    <Button className="mt-5 mr-6">Signin</Button> */}
+    <Button  className="mt-5">Signin with Google</Button>
       
     </form>
   )
