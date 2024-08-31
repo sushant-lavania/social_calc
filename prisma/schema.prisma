@@ -24,11 +24,13 @@ model User {
 }
 
 model Spreadsheet {
-  id        String   @id @default(cuid())
-  userid    String
-  user      User     @relation(fields: [userid], references: [id])
-  name      String // Name of the spreadsheet
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
-  data      Json
+  id           String   @id @default(cuid())
+  userid       String
+  user         User     @relation(fields: [userid], references: [id])
+  name         String // Name of the spreadsheet
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  data         Json
+  allowedUsers String[]
+  anyOneAllowed Boolean @default(false)
 }

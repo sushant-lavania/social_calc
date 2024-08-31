@@ -21,7 +21,7 @@ export default function SpreadsheetList({ id, name, updatedAt }: SpreadsheetList
     setIsDeleting(true);
     try {
       await deleteSpreadsheet(id);
-      toast("deleted successfully")
+      toast("🗑️ Deleted Successfully")
     } catch (error) {
       console.error("Error deleting spreadsheet:", error);
       setIsDeleting(false); // Re-enable the button if there's an error

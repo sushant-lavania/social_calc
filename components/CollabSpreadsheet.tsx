@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Workbook } from "@fortune-sheet/react";
 import "@fortune-sheet/react/dist/index.css";
 import { useCallback, useEffect, useState, useTransition } from "react";
@@ -7,17 +7,39 @@ import { Spreadsheet } from "@prisma/client";
 import { saveSheet } from "@/lib/saveSheet";
 import { toast } from "sonner";
 import AddUsersModal from "./AddUsersModal";
-import { addUserToSpreadsheet } from "@/lib/AddUser";
+import * as Y from "yjs";
+import { WebsocketProvider } from "y-websocket";
 
-export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spreadsheet | null }) {
+const ydoc = new Y.Doc();
+export default function CollabSpreadsheetComponent({ spreadsheet }: { spreadsheet: Spreadsheet | null }) {
   const [SheetState, setSheetState] = useState(spreadsheet?.data);
   const [isPending, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Yjs setup
+  const provider = new WebsocketProvider("ws://localhost:1234",spreadsheet?.id, ydoc);
+  const ySheetState = ydoc.getMap("sheet");
+
+  useEffect(() => {
+    // Initialize Yjs shared data
+    ySheetState.set("data", spreadsheet?.data || []);
+    setSheetState(ySheetState.get("data"));
+
+    // Subscribe to Yjs updates
+    ySheetState.observe(() => {
+      setSheetState(ySheetState.get("data"));
+    });
+
+    return () => {
+      // Disconnect Yjs provider when component unmounts
+      provider.disconnect();
+    };
+  }, [spreadsheet]);
+
   function handleChange(data: any) {
-    setSheetState(data);
-    console.log("Data updated", SheetState);
+    // Update Yjs shared state
+    ySheetState.set("data", data);
   }
 
   const handleSave = () => {
@@ -25,7 +47,7 @@ export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spr
     startTransition(async () => {
       try {
         await saveSheet(spreadsheet?.id as string, SheetState);
-        toast("Successfully Saved ✅")
+        toast("Successfully Saved ✅");
         console.log("Data saved");
       } catch (error) {
         console.error("Error saving data:", error);
@@ -35,16 +57,9 @@ export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spr
     });
   };
 
-  const handleAddUser = async(email: string) => {
+  const handleAddUser = (email: string) => {
     console.log("User added:", email);
-    if(!spreadsheet){
-      toast("Error adding user")
-      console.log("Spreadsheet undefined")
-      return
-    }
-    await addUserToSpreadsheet(spreadsheet.id,email)
-    toast("Added User")
-    
+    // Logic to add the user goes here
   };
 
   useEffect(() => {
@@ -69,11 +84,7 @@ export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spr
         />
       )}
       
-      <AddUsersModal
-        open={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onAddUser={handleAddUser} 
-      />
+    
     </div>
   );
 }
