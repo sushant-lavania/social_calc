@@ -33,4 +33,5 @@ model Spreadsheet {
   data         Json
   allowedUsers String[]
   anyOneAllowed Boolean @default(false)
+  createdBy    String
 }

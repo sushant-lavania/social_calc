@@ -52,11 +52,12 @@ export async function createSpreadsheet() {
         if(!user?.id){
             return null
         }
-        const newSpreadsheet = await prisma.spreadsheet.create({
+        await prisma.spreadsheet.create({
             data:{
                 userid:user.id,
                 name:"untitled",
-                data:defaultSpreadsheet as Prisma.JsonArray
+                data:defaultSpreadsheet as Prisma.JsonArray,
+                createdBy: user.email
             },
         })
 
