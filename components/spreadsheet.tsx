@@ -51,6 +51,7 @@ export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spr
     console.log("Spreadsheet data:", spreadsheet?.data);
   }, [spreadsheet]);
 
+
   return (
     <div className="h-screen flex flex-col">
       <div className="flex justify-between px-3 py-1 items-center">
@@ -70,9 +71,12 @@ export default function SpreadsheetComponent({ spreadsheet }: { spreadsheet: Spr
       )}
       
       <AddUsersModal
+        allowedUsers={spreadsheet?.allowedUsers as string[]}
+        spreadsheetId={spreadsheet?.id as string}
         open={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         onAddUser={handleAddUser} 
+        anyOneAllowed={spreadsheet?.anyOneAllowed as boolean}
       />
     </div>
   );
