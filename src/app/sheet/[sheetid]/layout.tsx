@@ -9,7 +9,7 @@ export default function RootLayout({
     return (
         <div>
             {children}
-            <Toaster position="bottom-center" theme="dark" />
+            <Toaster position="top-center" theme="dark" />
         </div>
     );
   }

@@ -16,6 +16,8 @@ interface AddUsersModalProps {
   onAddUser: (email: string) => void;
   anyOneAllowed: boolean;
   allowedUsers: string[];
+  anyOneAllowedState: boolean;
+  setAnyOneAllowedState: (state: boolean) => void;
 }
 
 export default function AddUsersModal({
@@ -25,11 +27,17 @@ export default function AddUsersModal({
   onClose,
   onAddUser,
   anyOneAllowed,
+  anyOneAllowedState,
+  setAnyOneAllowedState
 }: AddUsersModalProps) {
   const [email, setEmail] = useState("");
-  const [anyOneAllowedState, setAnyOneAllowedState] = useState(anyOneAllowed);
   const [addedUsers, setAddedUsers] = useState<string[]>(allowedUsers);
   
+  useEffect(() => {
+    if (open) {
+      setAnyOneAllowedState(anyOneAllowed);
+    }
+  }, [open, anyOneAllowed]);
   
 
   const handleAdd = () => {

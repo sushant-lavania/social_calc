@@ -30,10 +30,10 @@ export default function SpreadsheetList({ id, name, updatedAt }: SpreadsheetList
 
   return (
     <div className="flex justify-between w-full items-center">
-      <Link href={`/sheet/${id}`}>
+      <Link className="w-full h-full" href={`/sheet/${id}`}>
         <div>
           <div>{name}</div>
-          <div>{updatedAt}</div>
+          <div className="text-base">{updatedAt}</div>
         </div>
       </Link>
       <div>

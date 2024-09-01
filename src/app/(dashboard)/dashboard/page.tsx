@@ -40,16 +40,20 @@ export default async function Dashboard() {
 
             {/* If the user has spreadsheets, render them in a table */}
             {spreadsheets && spreadsheets.length > 0 ? (
-                <div className="w-full p-3">
-                   {spreadsheets.map((spreadsheet)=>(
-                    <div className="hover:bg-slate-900 hover:text-slate-50 rounded-xl hover:cursor-pointer text-2xl p-5" key={spreadsheet.id}>
-                        <SpreadsheetList id={spreadsheet.id} name={spreadsheet.name} updatedAt={spreadsheet.updatedAt.toLocaleString()}/>
-                    </div>
-                   ))}
-                </div>
-            ) : (
-                <p className="p-5 w-full text-xl">No spreadsheets created</p>
-            )}
+            <div className="w-full p-3">
+               {spreadsheets.map((spreadsheet) => {
+                   const formattedDate = spreadsheet.updatedAt.toLocaleDateString();
+                   const formattedTime = spreadsheet.updatedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                   return (
+                       <div className="hover:bg-slate-900 hover:text-slate-50 rounded-xl hover:cursor-pointer text-2xl p-5" key={spreadsheet.id}>
+                           <SpreadsheetList id={spreadsheet.id} name={spreadsheet.name} updatedAt={`${formattedTime} ${formattedDate}`}/>
+                       </div>
+                   );
+               })}
+            </div>
+        ) : (
+            <p className="p-5 w-full text-xl">No spreadsheets created</p>
+        )}
         </div>
     );
 } catch (error) {

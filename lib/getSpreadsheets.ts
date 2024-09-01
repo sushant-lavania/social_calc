@@ -9,6 +9,9 @@ export async function getSpreadsheets(){
             where: {
                 userid: user.id,
             },
+            orderBy: {
+                updatedAt: "desc",
+            }
         });
         return spreadsheets
 
