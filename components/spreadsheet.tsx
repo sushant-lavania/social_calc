@@ -81,7 +81,7 @@ export default function SpreadsheetComponent({ spreadsheet , email }: { spreadsh
           <Input  onChange={debouncedHandleTitleChange} maxLength={20} value={Title} className="text-xl ml-5 max-w-fit"></Input>
       </div>
         <div className="flex gap-x-2 items-center">
-          {spreadsheet?.createdBy == email ?<Button onClick={() => setIsModalOpen(true)}>Add Users</Button>:<span className="text-sm">Created by: {email}</span> }
+          {spreadsheet?.createdBy == email ?<Button onClick={() => setIsModalOpen(true)}>Share</Button>:<span className="text-sm">Created by: {spreadsheet?.createdBy}</span> }
           <Button onClick={handleSave} disabled={isSaving || isPending}>
             {isSaving || isPending ? "Saving..." : "Save"}
           </Button>
