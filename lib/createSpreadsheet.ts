@@ -13,7 +13,7 @@ export async function createSpreadsheet() {
         order: 0,
         hide: 0,
         row: 50,
-        column: 26,
+        column: 52,
         defaultRowHeight: 23,
         defaultColWidth: 73,
         celldata: [],

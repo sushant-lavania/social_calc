@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,12 +19,14 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "express": "^4.19.2",
+    "framer-motion": "^11.3.31",
     "lucide-react": "^0.436.0",
     "next": "14.2.6",
     "next-auth": "^5.0.0-beta.20",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^5.3.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",

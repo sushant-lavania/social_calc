@@ -8,6 +8,7 @@ import { AllowEveryone } from "@/lib/AllowEveryone";
 import { toast } from "sonner";
 import { removeUserFromSpreadsheet } from "@/lib/removeUserfromAllowed";
 import { getspreadsheetAllowedAnyone } from "@/lib/getSpreadSheet";
+import { usePathname } from "next/navigation";
 
 interface AddUsersModalProps {
   spreadsheetId: string;
@@ -16,6 +17,8 @@ interface AddUsersModalProps {
   onAddUser: (email: string) => void;
   anyOneAllowed: boolean;
   allowedUsers: string[];
+  anyOneAllowedState: boolean;
+  setAnyOneAllowedState: (state: boolean) => void;
 }
 
 export default function AddUsersModal({
@@ -25,11 +28,18 @@ export default function AddUsersModal({
   onClose,
   onAddUser,
   anyOneAllowed,
+  anyOneAllowedState,
+  setAnyOneAllowedState
 }: AddUsersModalProps) {
   const [email, setEmail] = useState("");
-  const [anyOneAllowedState, setAnyOneAllowedState] = useState(anyOneAllowed);
   const [addedUsers, setAddedUsers] = useState<string[]>(allowedUsers);
+  const pathname = usePathname();
   
+  useEffect(() => {
+    if (open) {
+      setAnyOneAllowedState(anyOneAllowed);
+    }
+  }, [open, anyOneAllowed]);
   
 
   const handleAdd = () => {
@@ -68,7 +78,7 @@ export default function AddUsersModal({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add User</DialogTitle>
+          <DialogTitle>Share</DialogTitle>
         </DialogHeader>
         <div className="flex items-center p-2 gap-x-3">
           <Input
@@ -86,9 +96,15 @@ export default function AddUsersModal({
             Add
           </Button>
         </div>
-        <div className="flex items-center mt-4">
-          <Switch checked={!anyOneAllowedState} onCheckedChange={handleToggle} />
-          <span className="ml-2">Allow Anyone</span>
+        <div className="flex items-center mt-4 justify-between">
+          <div className="flex gap-2">
+            <Switch checked={!anyOneAllowedState} onCheckedChange={handleToggle} />
+            <span className="ml-2">Allow Anyone</span>
+          </div>
+          <Button onClick={() => {
+            navigator.clipboard.writeText(`${window.location.origin}${pathname}`);
+            toast("URL copied to clipboard");
+          }} >Copy URL</Button>
         </div>
         {/* Render added users */}
         <div className="mt-4">

@@ -24,7 +24,7 @@ export default async function Sheet({params}:{ params : {sheetid:string}}){
     
     return(
         <div className="h-screen">
-            <SpreadsheetComponent spreadsheet={spreadsheet} />
+            <SpreadsheetComponent spreadsheet={spreadsheet} email ={userEmail as string} />
         </div>
     )
     
